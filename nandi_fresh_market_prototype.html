@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#176b3a">
+<title>Nandi Fresh Market</title>
+<style>
+:root{--green:#176b3a;--green2:#22874b;--cream:#f7f8f2;--ink:#17231a;--muted:#647067;--line:#e2e8df;--white:#fff;--orange:#f4a340}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--cream);color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:12px 15px;font-weight:700}button:focus,input:focus,select:focus,textarea:focus{outline:3px solid #b4dfbf;outline-offset:1px}
+header{background:var(--green);color:white;padding:16px max(16px,calc((100% - 1050px)/2));position:sticky;top:0;z-index:5;box-shadow:0 2px 10px #1234}
+.brand{display:flex;align-items:center;gap:10px}.logo{background:#fff;color:var(--green);width:42px;height:42px;border-radius:14px;display:grid;place-items:center;font-size:24px}.brand h1{font-size:20px;margin:0}.brand p{margin:2px 0 0;font-size:12px;color:#d8f1de}
+nav{display:flex;gap:8px;margin-top:14px;overflow-x:auto}nav button{white-space:nowrap;background:#ffffff20;color:white;padding:9px 13px}nav button.active{background:white;color:var(--green)}
+main{max-width:1050px;margin:auto;padding:18px 16px 92px}.hero{background:linear-gradient(120deg,#e3f3df,#f8f4df);border-radius:22px;padding:23px;display:grid;grid-template-columns:1.3fr .7fr;gap:12px;align-items:center}.hero h2{font-size:clamp(25px,5vw,39px);line-height:1.1;margin:0 0 10px}.hero p{color:#536253;margin:0 0 17px}.hero-art{text-align:center;font-size:80px;filter:drop-shadow(0 6px 4px #0001)}.primary{background:var(--green);color:white}.secondary{background:#e6f2e6;color:var(--green)}.ghost{background:#f0f3ee;color:#344238}.section-head{display:flex;justify-content:space-between;align-items:end;gap:10px;margin:25px 0 13px}.section-head h2{font-size:21px;margin:0}.section-head p{margin:4px 0 0;color:var(--muted);font-size:13px}.searchrow{display:flex;gap:8px;margin:16px 0}.searchrow input{flex:1;min-width:0}.field{width:100%;border:1px solid var(--line);background:white;border-radius:12px;padding:12px;color:var(--ink)}.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:5px}.chips button{background:white;border:1px solid var(--line);white-space:nowrap;padding:8px 12px}.chips button.active{background:#e0f0df;border-color:#a7d1aa;color:var(--green)}
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.product{background:white;border:1px solid var(--line);border-radius:17px;overflow:hidden;display:flex;flex-direction:column}.product-art{height:115px;background:linear-gradient(135deg,#e5f3df,#fbf1d9);display:grid;place-items:center;font-size:52px}.product-body{padding:12px;display:flex;flex-direction:column;gap:6px;flex:1}.product h3{font-size:15px;margin:0}.sub{font-size:12px;color:var(--muted)}.price{font-size:17px;font-weight:800;color:var(--green)}.product button{margin-top:5px;padding:10px;font-size:13px}
+.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:17px;margin-top:16px}.panel h2{font-size:20px;margin:0 0 7px}.hint{font-size:13px;color:var(--muted);line-height:1.5}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.formrow{display:flex;flex-direction:column;gap:6px}.formrow label{font-size:13px;font-weight:700}.formrow.full{grid-column:1/-1}.form-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.empty{text-align:center;padding:34px 15px;color:var(--muted)}.cart-line,.order-line{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.qty{display:flex;align-items:center;gap:8px}.qty button{padding:5px 9px;background:#eef4eb}.total{display:flex;justify-content:space-between;font-size:18px;font-weight:800;margin-top:15px}.badge{font-size:11px;padding:4px 8px;background:#edf5e9;color:var(--green);border-radius:99px;font-weight:700}.notice{background:#fff6e5;border:1px solid #f4d7a3;border-radius:12px;padding:12px;font-size:13px;color:#654717;line-height:1.5}.hidden{display:none!important}.footer-note{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
+@media(max-width:650px){.hero{grid-template-columns:1fr}.hero-art{display:none}.products{grid-template-columns:repeat(2,minmax(0,1fr))}.product-art{height:95px}.formgrid{grid-template-columns:1fr}.formrow.full{grid-column:auto}.brand h1{font-size:18px}main{padding:14px 12px 90px}}
+@media(min-width:900px){.products{grid-template-columns:repeat(4,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="logo">🌱</div><div><h1>Nandi Fresh Market</h1><p>Fresh from local farmers to your table</p></div></div>
+ <nav aria-label="Main navigation">
+  <button class="active" data-page="shop">🛒 Shop</button><button data-page="sell">🌾 Sell produce</button><button data-page="cart">🧺 Cart <span id="cartCount">0</span></button><button data-page="orders">📦 My orders</button>
+ </nav>
+</header>
+<main>
+<section id="page-shop">
+ <div class="hero"><div><span class="badge">LOCAL • FRESH • FAIR</span><h2>Good food starts with our farmers.</h2><p>Discover fresh produce from farmers around Kapsabet and Nandi. Order what you need, in the quantity you need.</p><button class="primary" onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})">Browse produce ↓</button></div><div class="hero-art">🥬 🥔 🌽</div></div>
+ <div class="section-head"><div><h2 id="catalogue">Today's market</h2><p>Demo prices only — sellers can update them.</p></div></div>
+ <div class="searchrow"><input id="search" class="field" placeholder="Search potatoes, cabbage, maize…" aria-label="Search produce"><select id="areaFilter" class="field" style="max-width:145px" aria-label="Filter by area"><option value="all">All areas</option><option>Kapsabet</option><option>Nandi</option></select></div>
+ <div class="chips" id="categoryChips"><button class="active" data-category="All">All produce</button><button data-category="Vegetables">Vegetables</button><button data-category="Tubers">Tubers</button><button data-category="Grains">Grains</button><button data-category="Fruits">Fruits</button></div>
+ <div class="products" id="products" style="margin-top:13px"></div>
+ <div class="footer-note">Support local farmers • Prices and availability should be confirmed before payment.</div>
+</section>
+<section id="page-sell" class="hidden">
+ <div class="section-head"><div><h2>List your produce</h2><p>Farmers can add a sample listing to this demo marketplace.</p></div></div>
+ <div class="notice">This first prototype stores listings on this device only. Other farmers will not see them until we connect the app to a shared online database.</div>
+ <form class="panel" id="sellForm">
+  <div class="formgrid">
+   <div class="formrow"><label for="sellerName">Farmer / business name</label><input class="field" id="sellerName" required placeholder="e.g. Kiptoo Farm"></div>
+   <div class="formrow"><label for="sellerPhone">Phone number</label><input class="field" id="sellerPhone" required inputmode="tel" placeholder="07XX XXX XXX"></div>
+   <div class="formrow"><label for="produceName">Produce name</label><input class="field" id="produceName" required placeholder="e.g. Yellow sweet potatoes"></div>
+   <div class="formrow"><label for="produceCategory">Category</label><select class="field" id="produceCategory"><option>Vegetables</option><option>Tubers</option><option>Grains</option><option>Fruits</option></select></div>
+   <div class="formrow"><label for="producePrice">Price (KSh)</label><input class="field" id="producePrice" type="number" min="1" required placeholder="e.g. 50"></div>
+   <div class="formrow"><label for="produceUnit">Unit</label><select class="field" id="produceUnit"><option>per kg</option><option>per bunch</option><option>per piece</option><option>per 90 kg bag</option><option>per crate</option></select></div>
+   <div class="formrow"><label for="produceStock">Available quantity</label><input class="field" id="produceStock" type="number" min="1" required placeholder="e.g. 100"></div>
+   <div class="formrow"><label for="produceArea">Pickup area</label><select class="field" id="produceArea"><option>Kapsabet</option><option>Nandi</option><option>Other</option></select></div>
+  </div>
+  <div class="form-actions"><button class="primary" type="submit">Add listing</button><button class="ghost" type="reset">Clear form</button></div>
+ </form>
+ <div class="panel"><h2>Your demo listings</h2><div id="sellerListings" class="hint">No listings added yet.</div></div>
+</section>
+<section id="page-cart" class="hidden">
+ <div class="section-head"><div><h2>Your cart</h2><p>Check quantities before placing an order.</p></div></div>
+ <div class="panel" id="cartContent"></div>
+ <div class="panel" id="checkoutPanel"><h2>Delivery and payment</h2><p class="hint">For this prototype, checkout saves a demo order on this device. It does not charge M-Pesa or notify a farmer.</p>
+  <form id="checkoutForm">
+   <div class="formgrid">
+    <div class="formrow"><label for="buyerName">Your name</label><input class="field" id="buyerName" required placeholder="Full name"></div>
+    <div class="formrow"><label for="buyerPhone">Phone number</label><input class="field" id="buyerPhone" required inputmode="tel" placeholder="07XX XXX XXX"></div>
+    <div class="formrow full"><label for="buyerLocation">Delivery location / pickup instructions</label><input class="field" id="buyerLocation" required placeholder="e.g. Kapsabet town, near…"></div>
+    <div class="formrow full"><label for="paymentMethod">Payment method</label><select class="field" id="paymentMethod"><option>M-Pesa (manual confirmation in demo)</option><option>Cash on delivery / pickup</option></select></div>
+   </div>
+   <div class="form-actions"><button class="primary" type="submit">Place demo order</button></div>
+  </form>
+ </div>
+</section>
+<section id="page-orders" class="hidden">
+ <div class="section-head"><div><h2>My orders</h2><p>Orders placed on this device appear here.</p></div></div>
+ <div id="ordersList" class="panel"></div>
+</section>
+<div class="footer-note">Nandi Fresh Market prototype v0.1 • Not yet connected to live payments or shared accounts.</div>
+</main>
+<script>
+const starter=[
+ {id:1,name:'Sukuma wiki',category:'Vegetables',price:20,unit:'per bunch',stock:80,area:'Kapsabet',seller:'Demo farmer',emoji:'🥬'},
+ {id:2,name:'Cabbage',category:'Vegetables',price:60,unit:'per piece',stock:45,area:'Nandi',seller:'Demo farmer',emoji:'🥬'},
+ {id:3,name:'Yellow sweet potatoes',category:'Tubers',price:45,unit:'per kg',stock:100,area:'Kapsabet',seller:'Demo farmer',emoji:'🍠'},
+ {id:4,name:'Irish potatoes',category:'Tubers',price:80,unit:'per kg',stock:60,area:'Nandi',seller:'Demo farmer',emoji:'🥔'},
+ {id:5,name:'Dry maize',category:'Grains',price:3200,unit:'per 90 kg bag',stock:20,area:'Nandi',seller:'Demo farmer',emoji:'🌽'},
+ {id:6,name:'Spinach',category:'Vegetables',price:25,unit:'per bunch',stock:50,area:'Kapsabet',seller:'Demo farmer',emoji:'🥗'}
+];
+const read=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))??f}catch(e){return f}};
+let listings=read('nfm_listings',[]), cart=read('nfm_cart',[]), orders=read('nfm_orders',[]), category='All';
+const save=()=>{localStorage.setItem('nfm_listings',JSON.stringify(listings));localStorage.setItem('nfm_cart',JSON.stringify(cart));localStorage.setItem('nfm_orders',JSON.stringify(orders));};
+const allProducts=()=>[...starter,...listings];
+const money=n=>'KSh '+Number(n).toLocaleString('en-KE');
+function showPage(page){document.querySelectorAll('main>section').forEach(s=>s.classList.add('hidden'));document.getElementById('page-'+page).classList.remove('hidden');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='cart')renderCart();if(page==='orders')renderOrders();if(page==='sell')renderSellerListings();window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+function renderProducts(){const q=document.getElementById('search').value.toLowerCase(),area=document.getElementById('areaFilter').value;const items=allProducts().filter(p=>(category==='All'||p.category===category)&&(`${p.name} ${p.seller} ${p.area}`.toLowerCase().includes(q))&&(area==='all'||p.area===area));const el=document.getElementById('products');el.innerHTML=items.length?items.map(p=>`<article class="product"><div class="product-art">${p.emoji||'🌱'}</div><div class="product-body"><h3>${esc(p.name)}</h3><div class="sub">${esc(p.area)} • ${esc(p.seller)}</div><div class="price">${money(p.price)} <span class="sub">${esc(p.unit)}</span></div><div class="sub">${p.stock} available</div><button class="primary" onclick="addToCart(${p.id})">Add to cart</button></div></article>`).join(''):'<div class="empty" style="grid-column:1/-1">No produce matches your search yet.</div>';}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+document.getElementById('search').addEventListener('input',renderProducts);document.getElementById('areaFilter').addEventListener('change',renderProducts);
+document.getElementById('categoryChips').addEventListener('click',e=>{const b=e.target.closest('button[data-category]');if(!b)return;category=b.dataset.category;document.querySelectorAll('#categoryChips button').forEach(x=>x.classList.toggle('active',x===b));renderProducts();});
+function addToCart(id){const p=allProducts().find(x=>x.id===id);if(!p)return;const found=cart.find(x=>x.id===id);if(found)found.qty=Math.min(found.qty+1,p.stock);else cart.push({id,qty:1});save();updateCount();toast(p.name+' added to cart');}
+function updateCount(){document.getElementById('cartCount').textContent=cart.reduce((s,x)=>s+x.qty,0);}
+function renderCart(){const el=document.getElementById('cartContent'),checkout=document.getElementById('checkoutPanel');if(!cart.length){el.innerHTML='<div class="empty">🧺<h3>Your cart is empty</h3><p>Add fresh produce from the market to get started.</p><button class="primary" onclick="showPage(\\'shop\\')">Browse produce</button></div>';checkout.classList.add('hidden');return;}checkout.classList.remove('hidden');el.innerHTML=cart.map(c=>{const p=allProducts().find(x=>x.id===c.id);if(!p)return '';return `<div class="cart-line"><div><strong>${esc(p.name)}</strong><div class="sub">${money(p.price)} ${esc(p.unit)}</div></div><div class="qty"><button onclick="changeQty(${p.id},-1)">−</button><strong>${c.qty}</strong><button onclick="changeQty(${p.id},1)">+</button><button class="ghost" onclick="removeItem(${p.id})">Remove</button></div></div>`}).join('')+`<div class="total"><span>Estimated total</span><span>${money(cart.reduce((s,c)=>{const p=allProducts().find(x=>x.id===c.id);return s+(p?p.price*c.qty:0)},0))}</span></div><p class="hint">Delivery charges are not included; confirm them with the seller.</p>`;}
+function changeQty(id,d){const c=cart.find(x=>x.id===id),p=allProducts().find(x=>x.id===id);if(!c)return;c.qty+=d;if(c.qty<1)cart=cart.filter(x=>x.id!==id);else if(p)c.qty=Math.min(c.qty,p.stock);save();updateCount();renderCart();}
+function removeItem(id){cart=cart.filter(x=>x.id!==id);save();updateCount();renderCart();}
+document.getElementById('sellForm').addEventListener('submit',e=>{e.preventDefault();const p={id:Date.now(),name:document.getElementById('produceName').value.trim(),category:document.getElementById('produceCategory').value,price:Number(document.getElementById('producePrice').value),unit:document.getElementById('produceUnit').value,stock:Number(document.getElementById('produceStock').value),area:document.getElementById('produceArea').value,seller:document.getElementById('sellerName').value.trim(),phone:document.getElementById('sellerPhone').value.trim(),emoji:({Vegetables:'🥬',Tubers:'🍠',Grains:'🌽',Fruits:'🍎'})[document.getElementById('produceCategory').value]};listings.unshift(p);save();e.target.reset();renderProducts();renderSellerListings();toast('Listing added to this device');});
+function renderSellerListings(){const el=document.getElementById('sellerListings');el.innerHTML=listings.length?listings.map(p=>`<div class="order-line"><div><strong>${esc(p.name)}</strong><div class="sub">${money(p.price)} ${esc(p.unit)} • ${p.stock} available • ${esc(p.seller)}</div></div><button class="ghost" onclick="deleteListing(${p.id})">Delete</button></div>`).join(''):'No listings added yet.';}
+function deleteListing(id){listings=listings.filter(p=>p.id!==id);save();renderProducts();renderSellerListings();}
+document.getElementById('checkoutForm').addEventListener('submit',e=>{e.preventDefault();if(!cart.length)return;const items=cart.map(c=>{const p=allProducts().find(x=>x.id===c.id);return {name:p.name,qty:c.qty,unit:p.unit,price:p.price,seller:p.seller}});const total=items.reduce((s,x)=>s+x.qty*x.price,0);const order={id:'NFM-'+Date.now().toString().slice(-7),date:new Date().toLocaleString(),buyer:document.getElementById('buyerName').value.trim(),phone:document.getElementById('buyerPhone').value.trim(),location:document.getElementById('buyerLocation').value.trim(),payment:document.getElementById('paymentMethod').value,status:'Demo order — not sent to seller',items,total};orders.unshift(order);cart=[];save();updateCount();e.target.reset();showPage('orders');toast('Demo order saved on this device');});
+function renderOrders(){const el=document.getElementById('ordersList');el.innerHTML=orders.length?orders.map(o=>`<div class="order-line" style="align-items:flex-start"><div><strong>${esc(o.id)} • ${money(o.total)}</strong><div class="sub">${esc(o.date)} • ${esc(o.payment)}</div><div class="sub">${esc(o.buyer)} • ${esc(o.phone)} • ${esc(o.location)}</div><div class="sub" style="margin-top:7px">${o.items.map(i=>`${esc(i.name)} × ${i.qty}`).join(' • ')}</div><span class="badge">${esc(o.status)}</span></div></div>`).join(''):'<div class="empty">No orders yet. Your demo orders will appear here.</div>';}
+let toastTimer;function toast(msg){let el=document.getElementById('toast');if(!el){el=document.createElement('div');el.id='toast';el.style.cssText='position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#173c25;color:white;padding:12px 18px;border-radius:14px;box-shadow:0 4px 20px #0003;z-index:10;max-width:90%;font-size:14px';document.body.appendChild(el)}el.textContent=msg;el.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.style.display='none',2200);}
+renderProducts();updateCount();
+</script>
+</body>
+</html>
